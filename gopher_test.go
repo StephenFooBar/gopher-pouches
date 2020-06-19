@@ -17,3 +17,8 @@ func TestRunCommandShouldShowInvalidMessageWhenAnInvalidCommandIssued(t *testing
 	actual := RunCommand(Command{"Invalidcommand"})
 	assert.Equal(t, expected, actual.message)
 }
+
+func TestRunCommandShouldReturnSuccessfullyWhenAValidCommandIssued(t *testing.T) {
+	actual := RunCommand(Command{"list"})
+	assert.Equal(t, true, actual.success)
+}
