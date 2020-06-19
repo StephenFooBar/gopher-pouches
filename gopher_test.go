@@ -11,3 +11,9 @@ func TestRunCommandShouldShowInvalidMessageWhenNilCommandIssued(t *testing.T) {
 	actual := RunCommand(Command{""})
 	assert.Equal(t, expected, actual.message)
 }
+
+func TestRunCommandShouldShowInvalidMessageWhenAnInvalidCommandIssued(t *testing.T) {
+	expected := "Invalid Command."
+	actual := RunCommand(Command{"Invalidcommand"})
+	assert.Equal(t, expected, actual.message)
+}
