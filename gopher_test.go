@@ -3,6 +3,8 @@ package main
 import (
 	"testing"
 
+	"feed"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -23,4 +25,8 @@ func TestRunCommandShouldShowInvalidMessageWhenAnInvalidCommandIssued(t *testing
 func TestRunCommandShouldReturnSuccessfullyWhenAValidCommandIssued(t *testing.T) {
 	actual := RunCommand(Command{"list"})
 	assert.Equal(t, true, actual.success)
+}
+
+func TestCanCallListFromFeedPackage(t *testing.T) {
+	feed.List()
 }
