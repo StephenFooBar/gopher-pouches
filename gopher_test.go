@@ -3,8 +3,7 @@ package main
 import (
 	"testing"
 
-	"feed"
-
+	"github.com/StephenFooBar/gopher-pouches/feed"
 	"github.com/stretchr/testify/assert"
 )
 
