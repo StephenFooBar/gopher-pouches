@@ -1,25 +1,20 @@
 package main
 
-type Response struct {
-	message string
-	success bool
-}
-
-type Command struct {
-	command string
-}
+import (
+	"github.com/StephenFooBar/gopher-pouches/command"
+)
 
 func main() {
 
 }
 
-func isValid(command Command) bool {
-	return command.command == "list"
+func isValid(command command.Command) bool {
+	return command.Command == "list"
 }
 
-func RunCommand(command Command) Response {
-	if !isValid(command) {
-		return Response{"Invalid Command.", false}
+func RunCommand(cmd command.Command) command.Response {
+	if !isValid(cmd) {
+		return command.Response{"Invalid Command.", false}
 	}
-	return Response{"Successfully executed.", true}
+	return command.Response{"Successfully executed.", true}
 }
