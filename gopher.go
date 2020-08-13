@@ -14,7 +14,7 @@ func isValid(command command.Command) bool {
 
 func RunCommand(cmd command.Command) command.Response {
 	if !isValid(cmd) {
-		return command.Response{"Invalid Command.", false}
+		return command.Response{command.InvalidCommand, false}
 	}
-	return command.Response{"Successfully executed.", true}
+	return command.Response{command.Successful, true}
 }

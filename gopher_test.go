@@ -10,14 +10,14 @@ import (
 )
 
 func TestRunCommandShouldShowInvalidMessageWhenNilCommandIssued(t *testing.T) {
-	expected := "Invalid Command."
+	expected := command.InvalidCommand
 	actual := RunCommand(command.Command{""})
 	assert.Equal(t, expected, actual.Message)
 	assert.Equal(t, false, actual.Success)
 }
 
 func TestRunCommandShouldShowInvalidMessageWhenAnInvalidCommandIssued(t *testing.T) {
-	expected := "Invalid Command."
+	expected := command.InvalidCommand
 	actual := RunCommand(command.Command{"Invalidcommand"})
 	assert.Equal(t, expected, actual.Message)
 	assert.Equal(t, false, actual.Success)
