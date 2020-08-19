@@ -8,8 +8,22 @@ import (
 )
 
 func TestGetConfigShouldShowErrorMessageWhenYamlFileIsMissing(t *testing.T) {
-	expected := command.YamlFileMissing
-	actual := Get()
+	expected := command.ConfigFileMissing
+	actual := Get("not-existing-file")
+	assert.Equal(t, false, actual.Success)
+	assert.Equal(t, expected, actual.Message)
+}
+
+func TestGetConfigShouldShowErrorMessageWhenConfigFileIsInvalid(t *testing.T) {
+	expected := command.InvalidConfig
+	actual := Get("test-invalid-config.yml")
+	assert.Equal(t, false, actual.Success)
+	assert.Equal(t, expected, actual.Message)
+}
+
+func TestGetConfigShouldShowErrorMessageWhenDatabaseTypeIsMissingInConfig(t *testing.T) {
+	expected := command.DatastoreTypeMissing
+	actual := Get("test-datastore-type-missing.yml")
 	assert.Equal(t, false, actual.Success)
 	assert.Equal(t, expected, actual.Message)
 }
