@@ -22,7 +22,7 @@ func TestGetConfigShouldShowErrorMessageWhenConfigFileIsInvalid(t *testing.T) {
 }
 
 func TestGetConfigShouldShowErrorMessageWhenDatabaseTypeIsMissingInConfig(t *testing.T) {
-	expected := command.DatastoreTypeMissing
+	expected := command.ConfigEntryMissing
 	actual := Get("test-datastore-type-missing.yml")
 	assert.Equal(t, false, actual.Success)
 	assert.Equal(t, expected, actual.Message)

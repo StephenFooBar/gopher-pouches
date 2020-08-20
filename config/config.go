@@ -2,7 +2,6 @@ package config
 
 import (
 	"errors"
-	"fmt"
 	"os"
 
 	"github.com/StephenFooBar/gopher-pouches/command"
@@ -23,11 +22,18 @@ func Get(configFilePath string) command.Response {
 	if err != nil {
 		return command.Response{command.InvalidConfig, false}
 	}
-	fmt.Println(config.Datastore)
-	if config.Datastore == "" {
-		return command.Response{command.DatastoreTypeMissing, false}
+
+	if msg := validateConfig(*config); msg != command.Successful {
+		return command.Response{msg, false}
 	}
 	return command.Response{command.Successful, true}
+}
+
+func validateConfig(config Config) string {
+	if config.Datastore == "" {
+		return command.ConfigEntryMissing
+	}
+	return command.Successful
 }
 
 func createConfig(filePath string) (*Config, error) {
