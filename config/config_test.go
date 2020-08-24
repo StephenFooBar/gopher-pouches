@@ -16,14 +16,15 @@ func TestGetConfigShouldShowErrorMessageWhenYamlFileIsMissing(t *testing.T) {
 
 func TestGetConfigShouldShowErrorMessageWhenConfigFileIsInvalid(t *testing.T) {
 	expected := command.InvalidConfig
-	actual := Get("test-invalid-config.yml")
+	actual := Get(Root + "/test/test-invalid-config.yml")
+	t.Log(Root)
 	assert.Equal(t, false, actual.Success)
 	assert.Equal(t, expected, actual.Message)
 }
 
 func TestGetConfigShouldShowErrorMessageWhenDatabaseTypeIsMissingInConfig(t *testing.T) {
 	expected := command.ConfigEntryMissing
-	actual := Get("test-datastore-type-missing.yml")
+	actual := Get(Root + "/test/test-datastore-type-missing.yml")
 	assert.Equal(t, false, actual.Success)
 	assert.Equal(t, expected, actual.Message)
 }
