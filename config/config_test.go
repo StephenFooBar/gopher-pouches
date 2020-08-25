@@ -37,6 +37,9 @@ func TestGetConfigShouldShowErrorMessageWhenConnectionInfoIsMissingInConfig(t *t
 }
 
 func TestGetConfigShouldReturnSuccessfullyWhenConfigFileIsValid(t *testing.T) {
-	//expected := command.Success
-	//iactual
+	expected := command.Successful
+	config, actual := Get(Root + "/test/test-valid-config.yml")
+	assert.Equal(t, true, actual.Success)
+	assert.Equal(t, expected, actual.Message)
+	assert.NotEmpty(t, config)
 }
