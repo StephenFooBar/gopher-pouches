@@ -9,28 +9,32 @@ import (
 )
 
 type Config struct {
-	Datastore string
+	Datastore  string
+	Connection string
 }
 
 const defaultYaml string = "config.yml"
 
-func Get(configFilePath string) command.Response {
+func Get(configFilePath string) (*Config, command.Response) {
 	if validateFile(configFilePath) != nil {
-		return command.Response{command.ConfigFileMissing, false}
+		return nil, command.Response{command.ConfigFileMissing, false}
 	}
 	config, err := createConfig(configFilePath)
 	if err != nil {
-		return command.Response{command.InvalidConfig, false}
+		return nil, command.Response{command.InvalidConfig, false}
 	}
 
 	if msg := validateConfig(*config); msg != command.Successful {
-		return command.Response{msg, false}
+		return nil, command.Response{msg, false}
 	}
-	return command.Response{command.Successful, true}
+	return config, command.Response{command.Successful, true}
 }
 
 func validateConfig(config Config) string {
 	if config.Datastore == "" {
+		return command.ConfigEntryMissing
+	}
+	if config.Connection == "" {
 		return command.ConfigEntryMissing
 	}
 	return command.Successful

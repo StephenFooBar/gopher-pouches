@@ -29,5 +29,5 @@ func TestRunCommandShouldReturnSuccessfullyWhenAValidCommandIssued(t *testing.T)
 }
 
 func TestCanCallListFromFeedPackage(t *testing.T) {
-	feed.List(config.Config{""})
+	feed.List(config.Config{"", ""})
 }

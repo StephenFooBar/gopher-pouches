@@ -10,7 +10,7 @@ import (
 
 func TestListFeedShouldShowErrorMessageWhenDataStoreIsNotSet(t *testing.T) {
 	expected := command.DataStoreNotSet
-	actual := List(config.Config{""})
+	actual := List(config.Config{"", ""})
 	assert.Equal(t, expected, actual.Message)
 	assert.Equal(t, false, actual.Success)
 }
