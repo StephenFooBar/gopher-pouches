@@ -24,13 +24,13 @@ func Get(configFilePath string) (*Config, command.Response) {
 		return nil, command.Response{command.InvalidConfig, false}
 	}
 
-	if msg := ValidateConfig(*config); msg != command.Successful {
+	if msg := Validate(*config); msg != command.Successful {
 		return nil, command.Response{msg, false}
 	}
 	return config, command.Response{command.Successful, true}
 }
 
-func ValidateConfig(config Config) string {
+func Validate(config Config) string {
 	if config.Datastore == "" {
 		return command.ConfigEntryMissing
 	}

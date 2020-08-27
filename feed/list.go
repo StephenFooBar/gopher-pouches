@@ -6,7 +6,7 @@ import (
 )
 
 func List(conf config.Config) command.Response {
-	if config.ValidateConfig(conf) != command.Successful {
+	if config.Validate(conf) != command.Successful {
 		return command.Response{command.DataStoreNotSet, false}
 	}
 	return command.Response{command.Successful, true}
