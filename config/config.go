@@ -17,17 +17,17 @@ const defaultYaml string = "config.yml"
 
 func Get(configFilePath string) (*Config, command.Response) {
 	if validateFile(configFilePath) != nil {
-		return nil, command.Response{command.ConfigFileMissing, false}
+		return nil, command.Response{command.ConfigFileMissing, false, nil}
 	}
 	config, err := createConfig(configFilePath)
 	if err != nil {
-		return nil, command.Response{command.InvalidConfig, false}
+		return nil, command.Response{command.InvalidConfig, false, nil}
 	}
 
 	if msg := Validate(*config); msg != command.Successful {
-		return nil, command.Response{msg, false}
+		return nil, command.Response{msg, false, nil}
 	}
-	return config, command.Response{command.Successful, true}
+	return config, command.Response{command.Successful, true, nil}
 }
 
 func Validate(config Config) string {

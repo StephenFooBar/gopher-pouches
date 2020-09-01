@@ -8,11 +8,11 @@ import (
 
 func List(conf config.Config) command.Response {
 	if config.Validate(conf) != command.Successful {
-		return command.Response{command.DataStoreNotSet, false}
+		return command.Response{command.DataStoreNotSet, false, nil}
 	}
 	ds := getDatastore(conf)
 	if ds == nil {
-		return command.Response{command.DataStoreNotSupported, false}
+		return command.Response{command.DataStoreNotSupported, false, nil}
 	}
 	/*
 		feeds, err := ds.GetFeeds(conf.Connection)
@@ -21,7 +21,7 @@ func List(conf config.Config) command.Response {
 			return command.Response{command.ErrorInDataStoreOperation, false}
 		}*/
 
-	return command.Response{command.Successful, true}
+	return command.Response{command.Successful, true, nil}
 }
 
 func getDatastore(conf config.Config) datastore.Datastore {

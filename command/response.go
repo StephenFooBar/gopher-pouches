@@ -3,7 +3,7 @@ package command
 type Response struct {
 	Message string
 	Success bool
-	//Data    interface{}
+	Data    interface{}
 }
 
 const (
