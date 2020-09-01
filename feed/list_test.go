@@ -21,3 +21,13 @@ func TestListFeedShouldShowErrorMessageWhenDataStoreNotSupported(t *testing.T) {
 	assert.Equal(t, expected, actual.Message)
 	assert.Equal(t, false, actual.Success)
 }
+
+func TestListFeedShouldShowErrorMessageWhenErrorOccurredInFetchingFeedFromDataStore(t *testing.T) {
+	if testing.Short() {
+		t.Skip("")
+	}
+	expected := command.ErrorInDataStoreOperation
+	actual := List(config.Config{"redis", ":6379"})
+	assert.Equal(t, expected, actual.Message)
+	assert.Equal(t, false, actual.Success)
+}

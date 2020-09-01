@@ -15,12 +15,12 @@ func List(conf config.Config) command.Response {
 		return command.Response{command.DataStoreNotSupported, false}
 	}
 	/*
-		feeds, _ := ds.GetFeeds(conf.Connection)
+		feeds, err := ds.GetFeeds(conf.Connection)
 
-		if feeds != nil {
-			return command.Response{command.Successful, true}
-		}
-	*/
+		if err != nil {
+			return command.Response{command.ErrorInDataStoreOperation, false}
+		}*/
+
 	return command.Response{command.Successful, true}
 }
 
