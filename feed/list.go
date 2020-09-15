@@ -14,7 +14,7 @@ func List(conf config.Config) command.Response {
 	if ds == nil {
 		return command.Response{command.DataStoreNotSupported, false, nil}
 	}
-	feeds, err := ds.GetFeeds(conf.Connection)
+	feeds, err := ds.GetFeeds()
 	if err != nil {
 		return command.Response{command.ErrorInDataStoreOperation, false, err}
 	}

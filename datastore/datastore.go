@@ -6,5 +6,5 @@ type Feed struct {
 }
 
 type Datastore interface {
-	GetFeeds(connection string) ([]Feed, error)
+	GetFeeds() ([]Feed, error)
 }

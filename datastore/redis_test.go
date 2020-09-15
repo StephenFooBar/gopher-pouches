@@ -8,7 +8,7 @@ import (
 
 func TestGetFeedsReturnsErrorWhenConnectionIsEmpty(t *testing.T) {
 	redis := Redis{""}
-	actual, err := redis.GetFeeds("")
+	actual, err := redis.GetFeeds()
 	assert.Nil(t, actual)
 	assert.NotNil(t, err)
 }

@@ -6,6 +6,6 @@ type Redis struct {
 	Connection string
 }
 
-func (r Redis) GetFeeds(connection string) ([]Feed, error) {
+func (r Redis) GetFeeds() ([]Feed, error) {
 	return nil, errors.New("Error occurred.")
 }
