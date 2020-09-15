@@ -8,3 +8,8 @@ type Feed struct {
 type Datastore interface {
 	GetFeeds() ([]Feed, error)
 }
+
+const (
+	EmptyConnection     string = "Connection string is empty."
+	FeedsListDoNotExist string = "Feeds List Do Not Exist."
+)

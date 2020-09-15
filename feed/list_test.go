@@ -24,7 +24,8 @@ func TestListFeedShouldShowErrorMessageWhenDataStoreNotSupported(t *testing.T) {
 
 func TestListFeedShouldShowErrorMessageWhenErrorOccurredInFetchingFeedFromDataStore(t *testing.T) {
 	expected := command.ErrorInDataStoreOperation
-	actual := List(config.Config{"redis", ":6379"})
+	failingPort := ":0000"
+	actual := List(config.Config{"redis", failingPort})
 	assert.Equal(t, expected, actual.Message)
 	assert.Equal(t, false, actual.Success)
 }
