@@ -24,7 +24,7 @@ func List(conf config.Config) command.Response {
 func getDatastore(conf config.Config) datastore.Datastore {
 	switch conf.Datastore {
 	case "redis":
-		return datastore.Redis{conf.Connection}
+		return datastore.GetInstance(conf.Connection)
 	default:
 		return nil
 	}
