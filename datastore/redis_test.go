@@ -17,7 +17,7 @@ func TestGetFeedsReturnsErrorWhenConnectionIsEmpty(t *testing.T) {
 
 func TestGetFeedsReturnsErrorWhenActiveFeedsKeyDoesNotExist(t *testing.T) {
 	/*
-		redis := Redis{":6379"}
+		redis := GetInstance("host=:6379,database=1")
 		expected := FeedsListDoNotExist
 		actual, err := redis.GetFeeds()
 		assert.Nil(t, actual)
