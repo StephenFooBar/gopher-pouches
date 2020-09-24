@@ -2,6 +2,8 @@ package datastore
 
 import (
 	"errors"
+	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/gomodule/redigo/redis"
@@ -43,11 +45,16 @@ func (r Redis) GetFeeds() ([]Feed, error) {
 	if err != nil {
 		return nil, err
 	}
-	if conn != nil {
-		return nil, nil
-
+	defer conn.Close()
+	if r.Database != "" {
+		db, _ := strconv.Atoi(r.Database)
+		conn.Do("SELECT", db)
 	}
-	return nil, nil
-
+	s, err := redis.String(conn.Do("GET", "ActiveFeeds"))
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println(s)
+	return []Feed{}, nil
 	//return nil, errors.New("Error occurred.")
 }
