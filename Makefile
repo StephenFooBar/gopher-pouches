@@ -1,4 +1,4 @@
 .PHONY: test
 test:
-	./run-redis.sh
+	./bin/run-redis.sh
 	@go test -v -short ./...
