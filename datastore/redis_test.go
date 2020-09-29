@@ -15,8 +15,7 @@ func TestGetFeedsReturnsErrorWhenConnectionIsEmpty(t *testing.T) {
 	expected := EmptyConnection
 	actual, err := redis.GetFeeds()
 	assert.Nil(t, actual)
-	assert.NotNil(t, err)
-	assert.Equal(t, expected, err.Error())
+	assertError(t, err, expected)
 }
 
 func TestGetFeedsReturnsErrorWhenActiveFeedsKeyDoesNotExist(t *testing.T) {
@@ -24,6 +23,10 @@ func TestGetFeedsReturnsErrorWhenActiveFeedsKeyDoesNotExist(t *testing.T) {
 	expected := "redigo: nil returned"
 	actual, err := redis.GetFeeds()
 	assert.Nil(t, actual)
+	assertError(t, err, expected)
+}
+
+func assertError(t *testing.T, err error, expected string) {
 	if assert.NotNil(t, err) {
 		assert.Equal(t, expected, err.Error())
 	}
