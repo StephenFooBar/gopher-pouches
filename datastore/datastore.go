@@ -7,6 +7,7 @@ type Feed struct {
 
 type Datastore interface {
 	GetFeeds() ([]Feed, error)
+	CreateFeeds()
 }
 
 const (

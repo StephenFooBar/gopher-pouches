@@ -37,6 +37,28 @@ func getHost(conn []string) string {
 	return host[len(host)-1]
 }
 
+func (r Redis) CreateFeeds() {
+	if r.Connection == "" {
+		//return nil, errors.New(EmptyConnection)
+		fmt.Println("no conn")
+	}
+	conn, err := redis.Dial("tcp", r.Host)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	defer conn.Close()
+	if r.Database != "" {
+		db, _ := strconv.Atoi(r.Database)
+		conn.Do("SELECT", db)
+	}
+	redis.String(conn.Do("LPUSH", "ActiveFeeds", "1"))
+	s, _ := redis.String(conn.Do("LRANGE", "ActiveFeeds", 0, -1))
+	fmt.Println(s)
+	redis.String(conn.Do("RPOP", "ActiveFeeds"))
+	x, _ := redis.String(conn.Do("LRANGE", "ActiveFeeds", 0, -1))
+	fmt.Println(x)
+}
+
 func (r Redis) GetFeeds() ([]Feed, error) {
 	if r.Connection == "" {
 		return nil, errors.New(EmptyConnection)
