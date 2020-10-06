@@ -27,8 +27,7 @@ func TestGetFeedsReturnsEmptyFeedWhenActiveFeedsKeyDoesNotExist(t *testing.T) {
 	assert.Empty(t, actual)
 }
 
-func TestGetFeedsReturnsEmptyFeedWhenActiveFeedsKeyDoesExist(t *testing.T) {
-	//t.Skip("skipping the test")
+func TestGetFeedsReturnsEmptyFeedWhenNothingIsInActiveFeeds(t *testing.T) {
 	redis := GetInstance("host=:6379,database=" + TestDB)
 	redis.AddFeed("test")
 	redis.RemoveFeed("test")
