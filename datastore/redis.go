@@ -37,39 +37,24 @@ func getHost(conn []string) string {
 	return host[len(host)-1]
 }
 
-func (r Redis) AddFeed(feed string) {
-	if r.Connection == "" {
-		fmt.Println("no conn")
-	}
-	conn, err := redis.Dial("tcp", r.Host)
+func (r Redis) AddFeed(feed string) error {
+	conn, err := r.connect()
 	if err != nil {
-		fmt.Println(err.Error())
+		return err
 	}
 	defer conn.Close()
-	if r.Database != "" {
-		db, _ := strconv.Atoi(r.Database)
-		conn.Do("SELECT", db)
-	}
 	conn.Do("LPUSH", "ActiveFeeds", feed)
+	return nil
 }
 
-func (r Redis) RemoveFeed(feed string) {
-	if r.Connection == "" {
-		//return nil, errors.New(EmptyConnection)
-		fmt.Println("no conn")
-	}
-	conn, err := redis.Dial("tcp", r.Host)
+func (r Redis) RemoveFeed(feed string) error {
+	conn, err := r.connect()
 	if err != nil {
-		fmt.Println(err.Error())
+		return err
 	}
 	defer conn.Close()
-	if r.Database != "" {
-		db, _ := strconv.Atoi(r.Database)
-		conn.Do("SELECT", db)
-	}
-
-	//conn.Do("RPOP", "ActiveFeeds")
 	conn.Do("LREM", "ActiveFeeds", 0, feed)
+	return nil
 }
 
 func (r Redis) GetFeeds() ([]Feed, error) {
