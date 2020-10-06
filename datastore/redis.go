@@ -37,7 +37,23 @@ func getHost(conn []string) string {
 	return host[len(host)-1]
 }
 
-func (r Redis) CreateFeeds() {
+func (r Redis) AddFeed(feed string) {
+	if r.Connection == "" {
+		fmt.Println("no conn")
+	}
+	conn, err := redis.Dial("tcp", r.Host)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	defer conn.Close()
+	if r.Database != "" {
+		db, _ := strconv.Atoi(r.Database)
+		conn.Do("SELECT", db)
+	}
+	conn.Do("LPUSH", "ActiveFeeds", feed)
+}
+
+func (r Redis) RemoveFeed(feed string) {
 	if r.Connection == "" {
 		//return nil, errors.New(EmptyConnection)
 		fmt.Println("no conn")
@@ -51,12 +67,9 @@ func (r Redis) CreateFeeds() {
 		db, _ := strconv.Atoi(r.Database)
 		conn.Do("SELECT", db)
 	}
-	redis.String(conn.Do("LPUSH", "ActiveFeeds", "1"))
-	s, _ := redis.String(conn.Do("LRANGE", "ActiveFeeds", 0, -1))
-	fmt.Println(s)
-	redis.String(conn.Do("RPOP", "ActiveFeeds"))
-	x, _ := redis.String(conn.Do("LRANGE", "ActiveFeeds", 0, -1))
-	fmt.Println(x)
+
+	//conn.Do("RPOP", "ActiveFeeds")
+	conn.Do("LREM", "ActiveFeeds", 0, feed)
 }
 
 func (r Redis) GetFeeds() ([]Feed, error) {
@@ -72,8 +85,9 @@ func (r Redis) GetFeeds() ([]Feed, error) {
 		db, _ := strconv.Atoi(r.Database)
 		conn.Do("SELECT", db)
 	}
-	s, err := redis.String(conn.Do("GET", "ActiveFeeds"))
+	s, err := redis.Strings(conn.Do("LRANGE", "ActiveFeeds", 0, -1))
 	if err != nil {
+		//return []Feed{}, nil
 		return nil, err
 	}
 	fmt.Println(s)
