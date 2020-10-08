@@ -29,14 +29,25 @@ func TestGetFeedsReturnsEmptyFeedWhenActiveFeedsKeyDoesNotExist(t *testing.T) {
 
 func TestGetFeedsReturnsEmptyFeedWhenNothingIsInActiveFeeds(t *testing.T) {
 	redis := GetInstance("host=:6379,database=" + TestDB)
-	redis.AddFeed("test")
-	redis.RemoveFeed("test")
+	mockFeed := Feed{"test", ""}
+	redis.AddFeed(mockFeed)
+	redis.RemoveFeed(mockFeed)
 	actual, err := redis.GetFeeds()
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 	assert.NotNil(t, actual)
 	assert.Empty(t, actual)
+}
+
+func TestGetFeedsReturnsAFeedWhenAFeedIsAdded(t *testing.T) {
+	redis := GetInstance("host=:6379,database=" + TestDB)
+	expected := Feed{"test", ""}
+	redis.AddFeed(expected)
+	actual, _ := redis.GetFeeds()
+	if assert.Len(t, actual, 1) {
+		assert.Equal(t, expected, actual[0])
+	}
 }
 
 func assertError(t *testing.T, err error, expected string) {

@@ -2,7 +2,6 @@ package datastore
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -37,23 +36,23 @@ func getHost(conn []string) string {
 	return host[len(host)-1]
 }
 
-func (r Redis) AddFeed(feed string) error {
+func (r Redis) AddFeed(feed Feed) error {
 	conn, err := r.connect()
 	if err != nil {
 		return err
 	}
 	defer conn.Close()
-	conn.Do("LPUSH", "ActiveFeeds", feed)
+	conn.Do("LPUSH", "ActiveFeeds", serializeFeed(feed))
 	return nil
 }
 
-func (r Redis) RemoveFeed(feed string) error {
+func (r Redis) RemoveFeed(feed Feed) error {
 	conn, err := r.connect()
 	if err != nil {
 		return err
 	}
 	defer conn.Close()
-	conn.Do("LREM", "ActiveFeeds", 0, feed)
+	conn.Do("LREM", "ActiveFeeds", 0, serializeFeed(feed))
 	return nil
 }
 
@@ -67,8 +66,34 @@ func (r Redis) GetFeeds() ([]Feed, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(s)
-	return []Feed{}, nil
+	return convertToFeeds(s), nil
+}
+
+func convertToFeeds(s []string) []Feed {
+	feeds := []Feed{}
+	for _, feed := range s {
+		feeds = append(feeds, deserializeFeed(feed))
+	}
+	return feeds
+}
+
+func serializeFeed(f Feed) string {
+	var sb strings.Builder
+	sb.WriteString("Name:")
+	sb.WriteString(f.Name)
+	sb.WriteString("|")
+	sb.WriteString("URL:")
+	sb.WriteString(f.URL)
+	//sb.WriteString("|")
+	return sb.String()
+}
+
+func deserializeFeed(s string) Feed {
+	attr := strings.Split(s, "|")
+	return Feed{
+		Name: strings.TrimPrefix(attr[0], "Name:"),
+		URL:  strings.TrimPrefix(attr[1], "URL:"),
+	}
 }
 
 func (r Redis) connect() (redis.Conn, error) {
