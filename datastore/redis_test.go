@@ -12,37 +12,36 @@ const (
 	TestDB     string = "2"
 )
 
+const (
+	RedisConnectionPrefix string = "host=:6379,database="
+)
+
+var mockFeed = Feed{"test name", "test url"}
+
 func TestGetFeedsReturnsErrorWhenConnectionIsEmpty(t *testing.T) {
 	redis := GetInstance("")
-	expected := EmptyConnection
+	expectedError := EmptyConnection
 	actual, err := redis.GetFeeds()
-	assert.Nil(t, actual)
-	assertError(t, err, expected)
+	assertError(t, err, expectedError, actual)
 }
 
 func TestGetFeedsReturnsEmptyFeedWhenActiveFeedsKeyDoesNotExist(t *testing.T) {
-	redis := GetInstance("host=:6379,database=" + NotInUseDB)
-	actual, _ := redis.GetFeeds()
-	assert.NotNil(t, actual)
-	assert.Empty(t, actual)
+	redis := GetInstance(RedisConnectionPrefix + NotInUseDB)
+	actual, err := redis.GetFeeds()
+	assertEmpty(t, err, actual)
 }
 
 func TestGetFeedsReturnsEmptyFeedWhenNothingIsInActiveFeeds(t *testing.T) {
-	redis := GetInstance("host=:6379,database=" + TestDB)
-	mockFeed := Feed{"test", ""}
+	redis := GetInstance(RedisConnectionPrefix + TestDB)
 	redis.AddFeed(mockFeed)
 	redis.RemoveFeed(mockFeed)
 	actual, err := redis.GetFeeds()
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	assert.NotNil(t, actual)
-	assert.Empty(t, actual)
+	assertEmpty(t, err, actual)
 }
 
 func TestGetFeedsReturnsAFeedWhenAFeedIsAdded(t *testing.T) {
-	redis := GetInstance("host=:6379,database=" + TestDB)
-	expected := Feed{"test", ""}
+	redis := GetInstance(RedisConnectionPrefix + TestDB)
+	expected := mockFeed
 	redis.AddFeed(expected)
 	actual, _ := redis.GetFeeds()
 	if assert.Len(t, actual, 1) {
@@ -50,7 +49,16 @@ func TestGetFeedsReturnsAFeedWhenAFeedIsAdded(t *testing.T) {
 	}
 }
 
-func assertError(t *testing.T, err error, expected string) {
+func assertEmpty(t *testing.T, err error, actual []Feed) {
+	if !assert.Nil(t, err) {
+		fmt.Println(err.Error())
+	}
+	assert.NotNil(t, actual)
+	assert.Empty(t, actual)
+}
+
+func assertError(t *testing.T, err error, expected string, actual []Feed) {
+	assert.Nil(t, actual)
 	if assert.NotNil(t, err) {
 		assert.Equal(t, expected, err.Error())
 	}
