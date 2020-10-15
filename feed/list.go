@@ -10,7 +10,7 @@ func List(conf config.Config) command.Response {
 	if config.Validate(conf) != command.Successful {
 		return command.Response{command.DataStoreNotSet, false, nil}
 	}
-	ds := getDatastore(conf)
+	ds := datastore.GetDatastore(conf)
 	if ds == nil {
 		return command.Response{command.DataStoreNotSupported, false, nil}
 	}
@@ -21,6 +21,7 @@ func List(conf config.Config) command.Response {
 	return command.Response{command.Successful, true, feeds}
 }
 
+/*
 func getDatastore(conf config.Config) datastore.Datastore {
 	switch conf.Datastore {
 	case "redis":
@@ -28,4 +29,4 @@ func getDatastore(conf config.Config) datastore.Datastore {
 	default:
 		return nil
 	}
-}
+}*/

@@ -12,4 +12,5 @@ func TestAddFeedShowShowErrorMessageWhenDataStoreIsNotSet(t *testing.T) {
 	expected := command.DataStoreNotSet
 	actual := Add(config.Config{"", ""})
 	assert.False(t, actual.Success)
+	assert.Equal(t, expected, actual.Message)
 }
