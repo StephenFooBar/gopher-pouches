@@ -5,12 +5,17 @@ import (
 
 	"github.com/StephenFooBar/gopher-pouches/command"
 	"github.com/StephenFooBar/gopher-pouches/config"
-	"github.com/stretchr/testify/assert"
+	"github.com/StephenFooBar/gopher-pouches/test"
 )
 
-func TestAddFeedShowShowErrorMessageWhenDataStoreIsNotSet(t *testing.T) {
+func TestAddFeedShouldShowErrorMessageWhenDataStoreIsNotSet(t *testing.T) {
 	expected := command.DataStoreNotSet
 	actual := Add(config.Config{"", ""})
-	assert.False(t, actual.Success)
-	assert.Equal(t, expected, actual.Message)
+	test.AssertFailure(t, expected, actual)
+}
+
+func TestAddFeedShouldShowErrorMessageWhenDataStoreNotSupported(t *testing.T) {
+	expected := command.DataStoreNotSupported
+	actual := List(config.Config{"not-existing-db", "not-existing-connection"})
+	test.AssertFailure(t, expected, actual)
 }
