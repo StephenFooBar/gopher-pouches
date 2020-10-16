@@ -16,6 +16,13 @@ func TestAddFeedShouldShowErrorMessageWhenDataStoreIsNotSet(t *testing.T) {
 
 func TestAddFeedShouldShowErrorMessageWhenDataStoreNotSupported(t *testing.T) {
 	expected := command.DataStoreNotSupported
-	actual := List(config.Config{"not-existing-db", "not-existing-connection"})
+	actual := Add(config.Config{"not-existing-db", "not-existing-connection"})
+	test.AssertFailure(t, expected, actual)
+}
+
+func TestAddFeedShouldShowErrorMessageWhenErrorOccurredWhileAddingFeedInDataStore(t *testing.T) {
+	expected := command.ErrorInDataStoreOperation
+	failingPort := ":0000"
+	actual := Add(config.Config{"redis", failingPort})
 	test.AssertFailure(t, expected, actual)
 }

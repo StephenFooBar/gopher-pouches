@@ -14,6 +14,9 @@ func Add(conf config.Config) command.Response {
 	if ds == nil {
 		return command.Response{command.DataStoreNotSupported, false, nil}
 	}
-
+	err := ds.AddFeed(datastore.Feed{})
+	if err != nil {
+		return command.Response{command.ErrorInDataStoreOperation, false, nil}
+	}
 	return command.Response{"", false, nil}
 }
