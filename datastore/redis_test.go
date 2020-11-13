@@ -33,20 +33,25 @@ func TestGetFeedsReturnsEmptyFeedWhenActiveFeedsKeyDoesNotExist(t *testing.T) {
 
 func TestGetFeedsReturnsEmptyFeedWhenNothingIsInActiveFeeds(t *testing.T) {
 	redis := GetInstance(RedisConnectionPrefix + TestDB)
+	redis.InitializeDb()
 	redis.AddFeed(mockFeed)
 	redis.RemoveFeed(mockFeed)
 	actual, err := redis.GetFeeds()
+	redis.InitializeDb()
 	assertEmpty(t, err, actual)
 }
 
 func TestGetFeedsReturnsAFeedWhenAFeedIsAdded(t *testing.T) {
 	redis := GetInstance(RedisConnectionPrefix + TestDB)
+	redis.InitializeDb()
 	expected := mockFeed
 	redis.AddFeed(expected)
 	actual, _ := redis.GetFeeds()
+	redis.InitializeDb()
 	if assert.Len(t, actual, 1) {
 		assert.Equal(t, expected, actual[0])
 	}
+	//	redis.InitializeDb()
 }
 
 func assertEmpty(t *testing.T, err error, actual []Feed) {

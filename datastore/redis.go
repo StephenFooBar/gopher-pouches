@@ -36,6 +36,16 @@ func getHost(conn []string) string {
 	return host[len(host)-1]
 }
 
+func (r Redis) InitializeDb() error {
+	conn, err := r.connect()
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	conn.Do("FLUSHDB")
+	return nil
+}
+
 func (r Redis) AddFeed(feed Feed) error {
 	conn, err := r.connect()
 	if err != nil {

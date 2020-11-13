@@ -15,4 +15,5 @@ const (
 	ConfigEntryMissing        string = "There is a missing entry in the config file. Run config to reset the file."
 	DataStoreNotSupported     string = "Data store specified in the config is not supported yet. Choose another or provide your own implementation."
 	ErrorInDataStoreOperation string = "Error occurred while performing operations in data store."
+	MissingFeedInformation    string = "Feed information is missing. Please supply both name of the feed and url."
 )
