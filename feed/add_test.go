@@ -36,6 +36,8 @@ func TestAddFeedShouldShowErrorMessageWhenErrorOccurredWhileAddingFeedInDataStor
 func TestAddFeedShouldShowErrorMessageWhenFeedIsEmpty(t *testing.T) {
 	expected := command.MissingFeedInformation
 	redisConnection := "host=:6379,database=2"
-	actual := Add(config.Config{"redis", redisConnection}, emptyFeed)
+	conf := config.Config{"redis", redisConnection}
+	test.InitializeRedis(conf)
+	actual := Add(conf, emptyFeed)
 	test.AssertFailure(t, expected, actual)
 }
