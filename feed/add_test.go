@@ -5,13 +5,13 @@ import (
 
 	"github.com/StephenFooBar/gopher-pouches/command"
 	"github.com/StephenFooBar/gopher-pouches/config"
-	"github.com/StephenFooBar/gopher-pouches/datastore"
+	"github.com/StephenFooBar/gopher-pouches/datastore/common"
 	"github.com/StephenFooBar/gopher-pouches/test"
 )
 
 var (
-	emptyFeed = datastore.Feed{}
-	mockFeed  = datastore.Feed{"Mock Feed", "https://www.google.com"}
+	emptyFeed = common.Feed{}
+	mockFeed  = common.Feed{"Mock Feed", "https://www.google.com"}
 )
 
 func TestAddFeedShouldShowErrorMessageWhenDataStoreIsNotSet(t *testing.T) {

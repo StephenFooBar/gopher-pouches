@@ -4,9 +4,10 @@ import (
 	"github.com/StephenFooBar/gopher-pouches/command"
 	"github.com/StephenFooBar/gopher-pouches/config"
 	"github.com/StephenFooBar/gopher-pouches/datastore"
+	"github.com/StephenFooBar/gopher-pouches/datastore/common"
 )
 
-func Add(conf config.Config, feed datastore.Feed) command.Response {
+func Add(conf config.Config, feed common.Feed) command.Response {
 	if !validate(feed) {
 		return command.Response{command.MissingFeedInformation, false, nil}
 	}
@@ -24,6 +25,6 @@ func Add(conf config.Config, feed datastore.Feed) command.Response {
 	return command.Response{"", false, nil}
 }
 
-func validate(feed datastore.Feed) bool {
+func validate(feed common.Feed) bool {
 	return feed.Name != "" && feed.URL != ""
 }

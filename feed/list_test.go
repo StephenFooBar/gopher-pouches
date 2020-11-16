@@ -5,7 +5,7 @@ import (
 
 	"github.com/StephenFooBar/gopher-pouches/command"
 	"github.com/StephenFooBar/gopher-pouches/config"
-	"github.com/StephenFooBar/gopher-pouches/datastore"
+	"github.com/StephenFooBar/gopher-pouches/datastore/common"
 	"github.com/StephenFooBar/gopher-pouches/test"
 	"github.com/stretchr/testify/assert"
 )
@@ -33,5 +33,5 @@ func TestListFeedShowReturnEmptyFeedWhenNoFeedExists(t *testing.T) {
 	redisConnection := "host=:6379,database=2"
 	actual := List(config.Config{"redis", redisConnection})
 	assert.Equal(t, true, actual.Success)
-	assert.Empty(t, actual.Data.([]datastore.Feed))
+	assert.Empty(t, actual.Data.([]common.Feed))
 }

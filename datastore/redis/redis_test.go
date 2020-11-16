@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/StephenFooBar/gopher-pouches/datastore/common"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -16,11 +17,11 @@ const (
 	RedisConnectionPrefix string = "host=:6379,database="
 )
 
-var mockFeed = Feed{"test name", "test url"}
+var mockFeed = common.Feed{"test name", "test url"}
 
 func TestGetFeedsReturnsErrorWhenConnectionIsEmpty(t *testing.T) {
 	r := GetInstance("")
-	expectedError := EmptyConnection
+	expectedError := common.EmptyConnection
 	actual, err := r.GetFeeds()
 	assertError(t, err, expectedError, actual)
 }
@@ -53,7 +54,7 @@ func TestGetFeedsReturnsAFeedWhenAFeedIsAdded(t *testing.T) {
 	}
 }
 
-func assertEmpty(t *testing.T, err error, actual []Feed) {
+func assertEmpty(t *testing.T, err error, actual []common.Feed) {
 	if !assert.Nil(t, err) {
 		fmt.Println(err.Error())
 	}
@@ -61,7 +62,7 @@ func assertEmpty(t *testing.T, err error, actual []Feed) {
 	assert.Empty(t, actual)
 }
 
-func assertError(t *testing.T, err error, expected string, actual []Feed) {
+func assertError(t *testing.T, err error, expected string, actual []common.Feed) {
 	assert.Nil(t, actual)
 	if assert.NotNil(t, err) {
 		assert.Equal(t, expected, err.Error())

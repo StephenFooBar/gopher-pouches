@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/StephenFooBar/gopher-pouches/datastore"
+	"github.com/StephenFooBar/gopher-pouches/datastore/common"
 	"github.com/gomodule/redigo/redis"
 	redisDb "github.com/gomodule/redigo/redis"
 )
@@ -48,7 +48,7 @@ func (r Redis) InitializeDb() error {
 	return nil
 }
 
-func (r Redis) AddFeed(feed datastore.Feed) error {
+func (r Redis) AddFeed(feed common.Feed) error {
 	conn, err := r.connect()
 	if err != nil {
 		return err
@@ -58,7 +58,7 @@ func (r Redis) AddFeed(feed datastore.Feed) error {
 	return nil
 }
 
-func (r Redis) RemoveFeed(feed datastore.Feed) error {
+func (r Redis) RemoveFeed(feed common.Feed) error {
 	conn, err := r.connect()
 	if err != nil {
 		return err
@@ -68,7 +68,7 @@ func (r Redis) RemoveFeed(feed datastore.Feed) error {
 	return nil
 }
 
-func (r Redis) GetFeeds() ([]datastore.Feed, error) {
+func (r Redis) GetFeeds() ([]common.Feed, error) {
 	conn, err := r.connect()
 	if err != nil {
 		return nil, err
@@ -81,15 +81,15 @@ func (r Redis) GetFeeds() ([]datastore.Feed, error) {
 	return convertToFeeds(s), nil
 }
 
-func convertToFeeds(s []string) []datastore.Feed {
-	feeds := []datastore.Feed{}
+func convertToFeeds(s []string) []common.Feed {
+	feeds := []common.Feed{}
 	for _, feed := range s {
 		feeds = append(feeds, deserializeFeed(feed))
 	}
 	return feeds
 }
 
-func serializeFeed(f datastore.Feed) string {
+func serializeFeed(f common.Feed) string {
 	var sb strings.Builder
 	sb.WriteString("Name:")
 	sb.WriteString(f.Name)
@@ -100,9 +100,9 @@ func serializeFeed(f datastore.Feed) string {
 	return sb.String()
 }
 
-func deserializeFeed(s string) datastore.Feed {
+func deserializeFeed(s string) common.Feed {
 	attr := strings.Split(s, "|")
-	return datastore.Feed{
+	return common.Feed{
 		Name: strings.TrimPrefix(attr[0], "Name:"),
 		URL:  strings.TrimPrefix(attr[1], "URL:"),
 	}
@@ -110,7 +110,7 @@ func deserializeFeed(s string) datastore.Feed {
 
 func (r Redis) connect() (redis.Conn, error) {
 	if r.Connection == "" {
-		return nil, errors.New(EmptyConnection)
+		return nil, errors.New(common.EmptyConnection)
 	}
 	conn, err := redisDb.Dial("tcp", r.Host)
 	if err != nil {
