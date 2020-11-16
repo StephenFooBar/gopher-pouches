@@ -1,4 +1,4 @@
-package datastore
+package redis
 
 import (
 	"fmt"
@@ -19,39 +19,38 @@ const (
 var mockFeed = Feed{"test name", "test url"}
 
 func TestGetFeedsReturnsErrorWhenConnectionIsEmpty(t *testing.T) {
-	redis := GetInstance("")
+	r := GetInstance("")
 	expectedError := EmptyConnection
-	actual, err := redis.GetFeeds()
+	actual, err := r.GetFeeds()
 	assertError(t, err, expectedError, actual)
 }
 
 func TestGetFeedsReturnsEmptyFeedWhenActiveFeedsKeyDoesNotExist(t *testing.T) {
-	redis := GetInstance(RedisConnectionPrefix + NotInUseDB)
-	actual, err := redis.GetFeeds()
+	r := GetInstance(RedisConnectionPrefix + NotInUseDB)
+	actual, err := r.GetFeeds()
 	assertEmpty(t, err, actual)
 }
 
 func TestGetFeedsReturnsEmptyFeedWhenNothingIsInActiveFeeds(t *testing.T) {
-	redis := GetInstance(RedisConnectionPrefix + TestDB)
-	redis.InitializeDb()
-	redis.AddFeed(mockFeed)
-	redis.RemoveFeed(mockFeed)
-	actual, err := redis.GetFeeds()
-	redis.InitializeDb()
+	r := GetInstance(RedisConnectionPrefix + TestDB)
+	r.InitializeDb()
+	r.AddFeed(mockFeed)
+	r.RemoveFeed(mockFeed)
+	actual, err := r.GetFeeds()
+	r.InitializeDb()
 	assertEmpty(t, err, actual)
 }
 
 func TestGetFeedsReturnsAFeedWhenAFeedIsAdded(t *testing.T) {
-	redis := GetInstance(RedisConnectionPrefix + TestDB)
-	redis.InitializeDb()
+	r := GetInstance(RedisConnectionPrefix + TestDB)
+	r.InitializeDb()
 	expected := mockFeed
-	redis.AddFeed(expected)
-	actual, _ := redis.GetFeeds()
-	redis.InitializeDb()
+	r.AddFeed(expected)
+	actual, _ := r.GetFeeds()
+	r.InitializeDb()
 	if assert.Len(t, actual, 1) {
 		assert.Equal(t, expected, actual[0])
 	}
-	//	redis.InitializeDb()
 }
 
 func assertEmpty(t *testing.T, err error, actual []Feed) {

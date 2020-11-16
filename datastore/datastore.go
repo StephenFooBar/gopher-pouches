@@ -1,6 +1,9 @@
 package datastore
 
-import "github.com/StephenFooBar/gopher-pouches/config"
+import (
+	"github.com/StephenFooBar/gopher-pouches/config"
+	"github.com/StephenFooBar/gopher-pouches/datastore/redis"
+)
 
 type Feed struct {
 	Name string
@@ -21,7 +24,7 @@ const (
 func GetDatastore(conf config.Config) Datastore {
 	switch conf.Datastore {
 	case "redis":
-		return GetInstance(conf.Connection)
+		return redis.GetInstance(conf.Connection)
 	default:
 		return nil
 	}

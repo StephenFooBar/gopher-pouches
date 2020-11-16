@@ -20,13 +20,3 @@ func List(conf config.Config) command.Response {
 	}
 	return command.Response{command.Successful, true, feeds}
 }
-
-/*
-func getDatastore(conf config.Config) datastore.Datastore {
-	switch conf.Datastore {
-	case "redis":
-		return datastore.GetInstance(conf.Connection)
-	default:
-		return nil
-	}
-}*/

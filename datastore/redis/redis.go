@@ -1,11 +1,13 @@
-package datastore
+package redis
 
 import (
 	"errors"
 	"strconv"
 	"strings"
 
+	"github.com/StephenFooBar/gopher-pouches/datastore"
 	"github.com/gomodule/redigo/redis"
+	redisDb "github.com/gomodule/redigo/redis"
 )
 
 type Redis struct {
@@ -46,7 +48,7 @@ func (r Redis) InitializeDb() error {
 	return nil
 }
 
-func (r Redis) AddFeed(feed Feed) error {
+func (r Redis) AddFeed(feed datastore.Feed) error {
 	conn, err := r.connect()
 	if err != nil {
 		return err
@@ -56,7 +58,7 @@ func (r Redis) AddFeed(feed Feed) error {
 	return nil
 }
 
-func (r Redis) RemoveFeed(feed Feed) error {
+func (r Redis) RemoveFeed(feed datastore.Feed) error {
 	conn, err := r.connect()
 	if err != nil {
 		return err
@@ -66,28 +68,28 @@ func (r Redis) RemoveFeed(feed Feed) error {
 	return nil
 }
 
-func (r Redis) GetFeeds() ([]Feed, error) {
+func (r Redis) GetFeeds() ([]datastore.Feed, error) {
 	conn, err := r.connect()
 	if err != nil {
 		return nil, err
 	}
 	defer conn.Close()
-	s, err := redis.Strings(conn.Do("LRANGE", "ActiveFeeds", 0, -1))
+	s, err := redisDb.Strings(conn.Do("LRANGE", "ActiveFeeds", 0, -1))
 	if err != nil {
 		return nil, err
 	}
 	return convertToFeeds(s), nil
 }
 
-func convertToFeeds(s []string) []Feed {
-	feeds := []Feed{}
+func convertToFeeds(s []string) []datastore.Feed {
+	feeds := []datastore.Feed{}
 	for _, feed := range s {
 		feeds = append(feeds, deserializeFeed(feed))
 	}
 	return feeds
 }
 
-func serializeFeed(f Feed) string {
+func serializeFeed(f datastore.Feed) string {
 	var sb strings.Builder
 	sb.WriteString("Name:")
 	sb.WriteString(f.Name)
@@ -98,9 +100,9 @@ func serializeFeed(f Feed) string {
 	return sb.String()
 }
 
-func deserializeFeed(s string) Feed {
+func deserializeFeed(s string) datastore.Feed {
 	attr := strings.Split(s, "|")
-	return Feed{
+	return datastore.Feed{
 		Name: strings.TrimPrefix(attr[0], "Name:"),
 		URL:  strings.TrimPrefix(attr[1], "URL:"),
 	}
@@ -110,7 +112,7 @@ func (r Redis) connect() (redis.Conn, error) {
 	if r.Connection == "" {
 		return nil, errors.New(EmptyConnection)
 	}
-	conn, err := redis.Dial("tcp", r.Host)
+	conn, err := redisDb.Dial("tcp", r.Host)
 	if err != nil {
 		return nil, err
 	}
