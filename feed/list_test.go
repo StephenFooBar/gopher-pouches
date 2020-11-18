@@ -31,7 +31,9 @@ func TestListFeedShouldShowErrorMessageWhenErrorOccurredInFetchingFeedFromDataSt
 
 func TestListFeedShowReturnEmptyFeedWhenNoFeedExists(t *testing.T) {
 	redisConnection := "host=:6379,database=2"
-	actual := List(config.Config{"redis", redisConnection})
+	conf := config.Config{"redis", redisConnection}
+	test.InitializeRedis(conf)
+	actual := List(conf)
 	assert.Equal(t, true, actual.Success)
 	assert.Empty(t, actual.Data.([]common.Feed))
 }
