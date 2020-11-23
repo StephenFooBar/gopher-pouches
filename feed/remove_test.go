@@ -10,41 +10,42 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAddFeedShouldShowErrorMessageWhenDataStoreIsNotSet(t *testing.T) {
+func TestRemoveFeedShouldShowErrorMessageWhenDataStoreIsNotSet(t *testing.T) {
 	expected := command.DataStoreNotSet
-	actual := Add(config.Config{"", ""}, mockFeed)
+	actual := Remove(config.Config{"", ""}, mockFeed)
 	test.AssertFailure(t, expected, actual)
 }
 
-func TestAddFeedShouldShowErrorMessageWhenDataStoreNotSupported(t *testing.T) {
+func TestRemoveFeedShouldShowErrorMessageWhenDataStoreNotSupported(t *testing.T) {
 	expected := command.DataStoreNotSupported
-	actual := Add(config.Config{"not-existing-db", "not-existing-connection"}, mockFeed)
+	actual := Remove(config.Config{"not-existing-db", "not-existing-connection"}, mockFeed)
 	test.AssertFailure(t, expected, actual)
 }
 
-func TestAddFeedShouldShowErrorMessageWhenErrorOccurredWhileAddingFeedInDataStore(t *testing.T) {
+func TestRemoveFeedShouldShowErrorMessageWhenErrorOccurredWhileRemovingFeedInDataStore(t *testing.T) {
 	expected := command.ErrorInDataStoreOperation
 	failingPort := ":0000"
-	actual := Add(config.Config{"redis", failingPort}, mockFeed)
+	actual := Remove(config.Config{"redis", failingPort}, mockFeed)
 	test.AssertFailure(t, expected, actual)
 }
 
-func TestAddFeedShouldShowErrorMessageWhenFeedIsEmpty(t *testing.T) {
+func TestRemoveFeedShouldShowErrorMessageWhenFeedIsEmpty(t *testing.T) {
 	expected := command.MissingFeedInformation
 	conf := config.Config{"redis", validRedisConnection}
 	test.InitializeRedis(conf)
-	actual := Add(conf, emptyFeed)
+	actual := Remove(conf, emptyFeed)
 	test.AssertFailure(t, expected, actual)
 }
 
-func TestAddFeedShouldShowErrorMessageWhenFeedIsMissingName(t *testing.T) {
+func TestRemoveFeedShouldShowErrorMessageWhenFeedIsMissingName(t *testing.T) {
 	expected := command.MissingFeedInformation
 	conf := config.Config{"redis", validRedisConnection}
 	test.InitializeRedis(conf)
-	actual := Add(conf, common.Feed{"", "https://www.google.com"})
+	actual := Remove(conf, common.Feed{"", "https://www.google.com"})
 	test.AssertFailure(t, expected, actual)
 }
 
+/*
 func TestAddFeedShouldShowErrorMessageWhenFeedIsMissingURL(t *testing.T) {
 	expected := command.MissingFeedInformation
 	conf := config.Config{"redis", validRedisConnection}
@@ -52,12 +53,16 @@ func TestAddFeedShouldShowErrorMessageWhenFeedIsMissingURL(t *testing.T) {
 	actual := Add(conf, common.Feed{"Mock Feed", ""})
 	test.AssertFailure(t, expected, actual)
 }
-
-func TestAddFeedShouldDisplayFeedWhenFeedIsValid(t *testing.T) {
+*/
+func TestRemoveFeedShouldRemoveValidFeed(t *testing.T) {
 	conf := config.Config{"redis", validRedisConnection}
 	test.InitializeRedis(conf)
 	Add(conf, mockFeed)
+	original := List(conf)
+	assert.Equal(t, true, original.Success)
+	assert.Equal(t, 1, len(original.Data.([]common.Feed)))
+	Remove(conf, mockFeed)
 	actual := List(conf)
 	assert.Equal(t, true, actual.Success)
-	assert.Equal(t, mockFeed, actual.Data.([]common.Feed)[0])
+	assert.Equal(t, 0, len(actual.Data.([]common.Feed)))
 }
