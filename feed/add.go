@@ -8,7 +8,7 @@ import (
 )
 
 func Add(conf config.Config, feed common.Feed) command.Response {
-	if !validate(feed) {
+	if !Validate(feed) {
 		return command.Response{command.MissingFeedInformation, false, nil}
 	}
 	if config.Validate(conf) != command.Successful {
