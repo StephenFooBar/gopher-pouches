@@ -8,8 +8,21 @@ import (
 	"github.com/StephenFooBar/gopher-pouches/test"
 )
 
-func TestListEpisodeShouldShowErrorWhenFeedIsNil(t *testing.T) {
+func TestListEpisodeShouldShowErrorWhenFeedIsEmpty(t *testing.T) {
 	expected := command.MissingFeedInformation
 	actual := List(common.Feed{})
 	test.AssertFailure(t, expected, actual)
 }
+
+func TestListEpisodeShouldShowErrorWhenFeedIsMissingURL(t *testing.T) {
+	expected := command.MissingFeedInformation
+	actual := List(common.Feed{"mockFeed", ""})
+	test.AssertFailure(t, expected, actual)
+}
+
+/*
+func TestListEpisodeShouldShowErrorWhenFeedIsNotAValidRssFeed(t *testing.T) {
+	expected := command.InvalidFeed
+	actual := List(common.)
+}
+*/
