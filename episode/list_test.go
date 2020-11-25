@@ -10,7 +10,7 @@ import (
 
 func TestListEpisodeShouldShowErrorWhenFeedIsEmpty(t *testing.T) {
 	expected := command.MissingFeedInformation
-	actual := List(common.Feed{})
+	actual := List(test.EmptyFeed)
 	test.AssertFailure(t, expected, actual)
 }
 
