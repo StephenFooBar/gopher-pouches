@@ -16,4 +16,7 @@ const (
 	DataStoreNotSupported     string = "Data store specified in the config is not supported yet. Choose another or provide your own implementation."
 	ErrorInDataStoreOperation string = "Error occurred while performing operations in data store."
 	MissingFeedInformation    string = "Feed information is missing. Please supply both name of the feed and url."
+	InvalidFeed               string = "Feed is not a valid RSS feed."
+	InvalidURL                string = "Invalid URL or no resource exists in the URL."
+	FailedRetrievingRss       string = "Error occurred while retrieving RSS from the URL."
 )

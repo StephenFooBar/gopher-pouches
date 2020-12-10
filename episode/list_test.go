@@ -20,9 +20,9 @@ func TestListEpisodeShouldShowErrorWhenFeedIsMissingURL(t *testing.T) {
 	test.AssertFailure(t, expected, actual)
 }
 
-/*
 func TestListEpisodeShouldShowErrorWhenFeedIsNotAValidRssFeed(t *testing.T) {
+	t.Skip("Need to put other tests first")
 	expected := command.InvalidFeed
-	actual := List(common.)
+	actual := List(test.NonRssMockFeed)
+	test.AssertFailure(t, expected, actual)
 }
-*/
