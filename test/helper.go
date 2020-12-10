@@ -23,3 +23,6 @@ func InitializeRedis(conf config.Config) {
 	// based on the config info, create redis instance
 	// call initialize DB method in redis
 }
+
+// how to skip a test
+//	t.Skip("Need to put other tests first")
