@@ -1,12 +1,20 @@
 package episode
 
 import (
+	"os"
 	"testing"
 
 	"github.com/StephenFooBar/gopher-pouches/command"
 	"github.com/StephenFooBar/gopher-pouches/test"
 	"github.com/stretchr/testify/assert"
 )
+
+func TestMain(m *testing.M) {
+	srv, httpServerDoneExit := test.RunMockHttpServer(test.MockPort)
+	code := m.Run()
+	test.StopMockHttpServer(srv, httpServerDoneExit)
+	os.Exit(code)
+}
 
 func TestListEpisodeShouldShowErrorWhenFeedIsEmpty(t *testing.T) {
 	expected := command.MissingFeedInformation
@@ -41,9 +49,9 @@ func TestParseFeedAsRssShouldShowErrorWhenHttpResponseIsNotOK(t *testing.T) {
 }
 
 func TestParseFeedAsRssShouldShowErrorWhenFeedIsMissingRssTag(t *testing.T) {
-	srv, httpServerDoneExit := test.RunMockHttpServer(test.MockPort)
+	//srv, httpServerDoneExit := test.RunMockHttpServer(test.MockPort)
 	expected := command.InvalidFeed
 	_, actual := ParseFeedAsRss(test.MissingRssTagFeed)
 	assert.Equal(t, expected, actual)
-	test.StopMockHttpServer(srv, httpServerDoneExit)
+	//test.StopMockHttpServer(srv, httpServerDoneExit)
 }
