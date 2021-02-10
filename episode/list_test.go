@@ -30,7 +30,6 @@ func TestListEpisodeShouldShowErrorWhenFeedIsMissingURL(t *testing.T) {
 
 func TestListEpisodeShouldShowErrorWhenFeedIsNotAValidRssFeed(t *testing.T) {
 	t.Skip("Need to put other tests first")
-	//must run mock servers here
 	expected := command.InvalidFeed
 	actual := List(test.NonRssMockFeed)
 	test.AssertFailure(t, expected, actual)
@@ -49,9 +48,7 @@ func TestParseFeedAsRssShouldShowErrorWhenHttpResponseIsNotOK(t *testing.T) {
 }
 
 func TestParseFeedAsRssShouldShowErrorWhenFeedIsMissingRssTag(t *testing.T) {
-	//srv, httpServerDoneExit := test.RunMockHttpServer(test.MockPort)
 	expected := command.InvalidFeed
 	_, actual := ParseFeedAsRss(test.MissingRssTagFeed)
 	assert.Equal(t, expected, actual)
-	//test.StopMockHttpServer(srv, httpServerDoneExit)
 }
