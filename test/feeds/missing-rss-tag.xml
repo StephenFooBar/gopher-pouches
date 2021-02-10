@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2enclosuresfull.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?>
+<missing-rss xmlns:media="http://search.yahoo.com/mrss/" 
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" 
+  xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" 
+  xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+  <channel>
+    <title>Title</title>
+    <link>http://localhost</link>
+    <atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://localhost" />
+    <description>Description</description>
+    <language>en-US</language>
+    <image>
+      <link>http://localhost</link>
+      <url>http://localhost</url>
+      <title>Title</title>
+    </image>
+    <copyright>None</copyright>
+    <managingEditor>None</managingEditor>
+    <lastBuildDate>Wed, 23 May 2018 14:03:34 PDT</lastBuildDate>
+    <generator>https://wordpress.org/?v=4.9.3</generator>
+    <sy:updatePeriod xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">hourly</sy:updatePeriod>
+    <sy:updateFrequency xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">1</sy:updateFrequency>
+    <itunes:summary>Summary</itunes:summary>
+    <itunes:author>Stephen FooBar</itunes:author>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="http://localhost" />
+
+    <itunes:subtitle>Subtitle</itunes:subtitle>
+    <rawvoice:subscribe xmlns:rawvoice="http://www.rawvoice.com/rawvoiceRssModule/" feed="http://localhost" itunes="http://localhost" />
+
+    <atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://localhost" />
+
+    <feedburner:info uri="rss" />
+
+    <atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" />
+
+    <media:copyright>None</media:copyright>
+    <media:thumbnail url="http://localhost" />
+
+    <media:keywords>keywords,keyword</media:keywords>
+    <media:category scheme="http://localhost">category</media:category>
+    <itunes:owner>
+      <itunes:email>no-one@no-one.com</itunes:email>
+      <itunes:name>None</itunes:name>
+    </itunes:owner>
+    <itunes:keywords>keywords,keyword</itunes:keywords>
+    <itunes:category text="Feed">
+      <itunes:category text="Sample" />
+</itunes:category>
+    <creativeCommons:license>http://creativecommons.org/licenses/by-nc-nd/2.5/</creativeCommons:license>
+    <item>
+      <title>Title1</title>
+      <link>http://localhost</link>
+      <category>test</category>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">none</dc:creator>
+      <pubDate>Fri, 01 Jan 2020 00:00:00 PDT</pubDate>
+      <guid isPermaLink="false">1</guid>
+      <description>description</description>
+      <wfw:commentRss xmlns:wfw="http://wellformedweb.org/CommentAPI/">comment</wfw:commentRss>
+      <slash:comments xmlns:slash="http://purl.org/rss/1.0/modules/slash/">0</slash:comments>
+      <itunes:subtitle>subtitle</itunes:subtitle>
+      <itunes:summary>summary</itunes:summary>
+      <itunes:author>none</itunes:author>
+      <itunes:image href="http://localhost" />
+
+      <itunes:explicit>clean</itunes:explicit>
+      <media:content url="http://localhost/sample.mp3" fileSize="0" type="audio/mpeg" />
+
+      <itunes:keywords>keywords,keyword</itunes:keywords>
+      <feedburner:origLink>http://localhost</feedburner:origLink>
+      <enclosure url="http://localhost/sample.mp3" length="74551049" type="audio/mpeg" />
+
+      <feedburner:origEnclosureLink>http://localhost/sample.mp3</feedburner:origEnclosureLink>
+    </item>
+    <item>
+      <title>Title2</title>
+      <link>http://localhost</link>
+      <category>test</category>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">none</dc:creator>
+      <pubDate>Fri, 01 Jan 2020 00:00:00 PDT</pubDate>
+      <guid isPermaLink="false">2</guid>
+      <description>description</description>
+      <wfw:commentRss xmlns:wfw="http://wellformedweb.org/CommentAPI/">comment</wfw:commentRss>
+      <slash:comments xmlns:slash="http://purl.org/rss/1.0/modules/slash/">0</slash:comments>
+      <itunes:subtitle>subtitle</itunes:subtitle>
+      <itunes:summary>summary</itunes:summary>
+      <itunes:author>none</itunes:author>
+      <itunes:image href="http://localhost" />
+
+      <itunes:explicit>clean</itunes:explicit>
+      <media:content url="http://localhost/sample2.mp3" fileSize="0" type="audio/mpeg" />
+
+      <itunes:keywords>keywords,keyword</itunes:keywords>
+      <feedburner:origLink>http://localhost</feedburner:origLink>
+      <enclosure url="http://localhost/sample2.mp3" length="0" type="audio/mpeg" />
+
+      <feedburner:origEnclosureLink>http://localhost/sample2.mp3</feedburner:origEnclosureLink>
+    </item>
+    
+    <item>
+      <title>Title3</title>
+      <link>http://localhost</link>
+      <category>test</category>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">none</dc:creator>
+      <pubDate>Fri, 01 Jan 2020 00:00:00 PDT</pubDate>
+      <guid isPermaLink="false"></guid>
+      <description>description
+&lt;ul&gt;
+ &lt;li&gt;desc 2&lt;/li&gt;
+ &lt;li&gt;desc 3&lt;/li&gt;
+ &lt;li&gt;desc 4&lt;/li&gt;
+ &lt;li&gt;desc 5&lt;/li&gt;
+ &lt;li&gt;desc 6&lt;/li&gt;
+ &lt;li&gt;desc 7&lt;/li&gt;
+ &lt;li&gt;desc 8&lt;/li&gt;
+ &lt;li&gt;desc 9&lt;/li&gt;
+&lt;/ul&gt;
+desc 10</description>
+      <wfw:commentRss xmlns:wfw="http://wellformedweb.org/CommentAPI/">comment</wfw:commentRss>
+      <slash:comments xmlns:slash="http://purl.org/rss/1.0/modules/slash/">0</slash:comments>
+      <itunes:subtitle>subtitle</itunes:subtitle>
+      <itunes:summary>summary</itunes:summary>
+      <itunes:author>none</itunes:author>
+      <itunes:image href="http://localhost" />
+
+      <itunes:explicit>clean</itunes:explicit>
+      <itunes:duration>59:59</itunes:duration>
+      <media:content url="http://localhost/sample3.mp3" fileSize="0" type="audio/mpeg" />
+
+      <itunes:keywords>keywords,keyword</itunes:keywords>
+      <feedburner:origLink>http://localhost</feedburner:origLink>
+      <enclosure url="http://localhost/sample3.mp3" length="0" type="audio/mpeg" />
+
+      <feedburner:origEnclosureLink>http://localhost/sample3.mp3</feedburner:origEnclosureLink>
+    </item>
+    <media:credit role="author">Stephen FooBar</media:credit>
+    <media:rating>nonadult</media:rating>
+    <media:description type="plain">description</media:description>
+  </channel>
+</missing-rss>

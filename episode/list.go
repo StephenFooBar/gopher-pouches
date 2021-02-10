@@ -1,7 +1,7 @@
 package episode
 
 import (
-	"fmt"
+	"encoding/xml"
 	"io/ioutil"
 	"net/http"
 
@@ -32,7 +32,9 @@ func ParseFeedAsRss(f common.Feed) (Rss, string) {
 	if err != nil {
 		return rss, command.InvalidFeed
 	}
-	fmt.Println(string(bodyInBytes))
+	xml.Unmarshal([]byte(string(bodyInBytes)), &rss)
+	if rss == (Rss{}) {
+		return rss, command.InvalidFeed
+	}
 	return rss, command.Successful
-	//todo: above correctly parse the rss feed
 }
