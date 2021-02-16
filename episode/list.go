@@ -15,7 +15,12 @@ func List(f common.Feed) command.Response {
 		return command.Response{command.MissingFeedInformation, false, nil}
 	}
 
-	return command.Response{"success", true, nil}
+	rss, response := ParseFeedAsRss(f)
+	if response != command.Successful {
+		return command.Response{response, false, nil}
+	}
+
+	return command.Response{command.Successful, true, rss}
 }
 
 func ParseFeedAsRss(f common.Feed) (Rss, string) {
