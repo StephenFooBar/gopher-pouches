@@ -24,22 +24,26 @@ func List(f common.Feed) command.Response {
 }
 
 func ParseFeedAsRss(f common.Feed) (Rss, string) {
-	var rss Rss
+	var rssXml RssXml
 	resp, err := http.Get(f.URL)
 	if err != nil {
-		return rss, command.InvalidURL
+		return Rss{}, command.InvalidURL
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return rss, command.FailedRetrievingRss
+		return Rss{}, command.FailedRetrievingRss
 	}
 	bodyInBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return rss, command.InvalidFeed
+		return Rss{}, command.InvalidFeed
 	}
-	xml.Unmarshal([]byte(string(bodyInBytes)), &rss)
-	if rss == (Rss{}) {
-		return rss, command.InvalidFeed
+	xml.Unmarshal([]byte(string(bodyInBytes)), &rssXml)
+	//fmt.Println("rss print out")
+	//fmt.Println(rssXml)
+	//fmt.Println(rssXml.Rss)
+	//fmt.Println(rssXml.Rss.Channel)
+	if rssXml == (RssXml{}) {
+		return Rss{}, command.InvalidFeed
 	}
-	return rss, command.Successful
+	return *rssXml.Rss, command.Successful
 }
