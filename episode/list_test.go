@@ -59,3 +59,17 @@ func TestParseFeedAsRssShouldShowErrorWhenFeedIsMissingChannelTag(t *testing.T) 
 	//fmt.Println(rss)
 	assert.Equal(t, expected, actual)
 }
+
+/*
+func TestListEpisodeShouldShowNoEpisodeWhenFeedIsMissingItemTag(t *testing.T) {
+	rss, _ := ParseFeedAsRss(test.MissingItemTagFeed)
+	expected := []Item{}
+	actual := List(test.MissingItemTagFeed)
+	assert.Equal(t, expected, actual.Data.Rss.Channel)
+	//Data.Channel
+	//      fmt.Println(actual.Channel)
+	//      fmt.Println(actual.Channel.Title)
+
+	assert.Equal(t, expected, actual)
+}
+*/

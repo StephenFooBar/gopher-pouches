@@ -11,6 +11,7 @@ var (
 	NotFoundURLMockFeed   = common.Feed{"Mock Feed", MockServerUrl + "/feeds/notexist"}
 	MissingRssTagFeed     = common.Feed{"Mock Feed", MockServerUrl + "/feeds/missing-rss-tag.xml"}
 	MissingChannelTagFeed = common.Feed{"Mock Feed", MockServerUrl + "/feeds/missing-channel-tag.xml"}
+	MissingItemTagFeed    = common.Feed{"Mock Feed", MockServerUrl + "/feeds/missing-items.xml"}
 
 	ValidRedisConnection = "host=:6379,database=2"
 	MockPort             = "41914"
