@@ -4,7 +4,7 @@
   xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" 
   xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" 
   xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
-  <missing-channel>
+  <missingchannel>
     <title>Title</title>
     <link>http://localhost</link>
     <atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://localhost" />
@@ -137,5 +137,5 @@ desc 10</description>
     <media:credit role="author">Stephen FooBar</media:credit>
     <media:rating>nonadult</media:rating>
     <media:description type="plain">description</media:description>
-  </missing-channel>
+  </missingchannel>
 </rss>

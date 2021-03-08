@@ -24,7 +24,7 @@ func List(f common.Feed) command.Response {
 }
 
 func ParseFeedAsRss(f common.Feed) (Rss, string) {
-	var rssXml RssXml
+	var rss Rss
 	resp, err := http.Get(f.URL)
 	if err != nil {
 		return Rss{}, command.InvalidURL
@@ -37,13 +37,13 @@ func ParseFeedAsRss(f common.Feed) (Rss, string) {
 	if err != nil {
 		return Rss{}, command.InvalidFeed
 	}
-	xml.Unmarshal([]byte(string(bodyInBytes)), &rssXml)
-	//fmt.Println("rss print out")
-	//fmt.Println(rssXml)
-	//fmt.Println(rssXml.Rss)
-	//fmt.Println(rssXml.Rss.Channel)
-	if rssXml == (RssXml{}) {
+	xml.Unmarshal([]byte(string(bodyInBytes)), &rss)
+	if !validateRss(rss) {
 		return Rss{}, command.InvalidFeed
 	}
-	return *rssXml.Rss, command.Successful
+	return rss, command.Successful
+}
+
+func validateRss(rss Rss) bool {
+	return rss != (Rss{}) && rss.XMLName.Local == "rss" && rss.Channel != nil
 }

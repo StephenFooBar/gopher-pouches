@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2enclosuresfull.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?>
-<missing-rss xmlns:media="http://search.yahoo.com/mrss/" 
+<missingrss xmlns:media="http://search.yahoo.com/mrss/" 
   xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" 
   xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" 
   xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
@@ -138,4 +138,4 @@ desc 10</description>
     <media:rating>nonadult</media:rating>
     <media:description type="plain">description</media:description>
   </channel>
-</missing-rss>
+</missingrss>
