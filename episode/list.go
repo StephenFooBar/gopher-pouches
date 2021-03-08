@@ -45,5 +45,5 @@ func ParseFeedAsRss(f common.Feed) (Rss, string) {
 }
 
 func validateRss(rss Rss) bool {
-	return rss != (Rss{}) && rss.XMLName.Local == "rss" && rss.Channel != nil
+	return rss.XMLName.Local == "rss" && rss.Title != ""
 }

@@ -3,14 +3,10 @@ package episode
 import "encoding/xml"
 
 type Rss struct {
-	XMLName xml.Name `xml:"rss"`
-	Channel *Channel `xml:"channel"`
-}
-
-type Channel struct {
-	Title       string `xml:"title"`
-	Description string `xml:"description"`
-	Items       []Item `xml:"item"`
+	XMLName     xml.Name `xml:"rss"`
+	Title       string   `xml:"channel>title"`
+	Description string   `xml:"channel>description"`
+	Items       []Item   `xml:"channel>item"`
 }
 
 type Item struct {

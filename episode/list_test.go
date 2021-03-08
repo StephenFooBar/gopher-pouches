@@ -60,5 +60,5 @@ func TestParseFeedAsRssShouldShowErrorWhenFeedIsMissingChannelTag(t *testing.T) 
 
 func TestListEpisodeShouldShowNoEpisodeWhenFeedIsMissingItemTag(t *testing.T) {
 	actual := List(test.MissingItemTagFeed)
-	assert.Empty(t, actual.Data.(Rss).Channel.Items)
+	assert.Empty(t, actual.Data.(Rss).Items)
 }
